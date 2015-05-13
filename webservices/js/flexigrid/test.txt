@@ -1,0 +1,1 @@
+INSERT INTO country VALUES(NULL,'AM','Armenia','Armenia','ARM',51)
