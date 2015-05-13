@@ -2,11 +2,11 @@
 Proyecto de sistemas distribuidos UPC (Control de calidad del concreto) Sistema Control Mix
 
 Integrantes:
-Carlos Barreto - U201100371
-Carlos Benavides - U201121444
-Jorge Aiquipa  - u201200480
-Hugo Carpio - u201222209
-Miguel Montanchez - u201000522
+Carlos Barreto - U201100371 <br>
+Carlos Benavides - U201121444 <br>
+Jorge Aiquipa  - u201200480 <br>
+Hugo Carpio - u201222209 <br>
+Miguel Montanchez - u201000522 <br>
 
 Primer Avance:
 
