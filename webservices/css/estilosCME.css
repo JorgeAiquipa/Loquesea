@@ -29,6 +29,102 @@ ul{
 	padding: 0px;
 }
 
+/*login*/
+
+#login-page-container{
+	background-image: url('../images/login_bg.png');
+	background-position: 0px -50px;
+	height: 450px;
+}
+
+#login_frame{
+	background-image: url('../images/fondo_login.png');
+	height:450px;
+	width: 990px;
+	position: relative;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.image_logocme{
+	background-image: url('../images/logocme.png');
+	background-repeat: no-repeat;
+	position: absolute;
+	top: 30px;
+	right: 40px;
+	width: 207px;
+	height: 66px;
+}
+
+.image_bars{
+	background-image: url('../images/barras.png');
+	position: absolute;
+	top: 70px;
+	right:350px;
+	width: 278px;
+	height: 292px;
+}
+
+.login_form_container{
+	width:250px;
+	height: 450px;
+	float: right;
+}
+
+.login_form{
+	list-style-type: none;
+	margin:0px;
+	padding:0px;
+	margin-top: 110px;
+}
+
+.login_form_label{
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	color: white;
+	margin-bottom: 10px;
+}
+
+.login_form_input{
+	margin-bottom: 15px;
+}
+
+.login_form_error{
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	font-weight: bold;
+	color: #C62925;
+}
+
+.login_textfield{
+	border: 1px solid #B4D0DA;
+	height: 20px;
+	width: 200px;
+	color: #222;
+	font-size: 12px;
+	padding: 2px 5px;
+}
+
+.login_button{
+	border: 1px solid #B4D0DA;
+	color: #208DBB;
+	background-color: white;
+	font-size: 12px;
+	padding: 2px 5px;
+}
+
+.login_link{
+	color: white;
+	text-decoration: none;
+}
+
+.login_link:hover{
+	color: white;
+	text-decoration: underline;
+}
+
+/*login*/
+
 .roboto100{
 	font-family: Roboto, Helvetica, 'Helvetica Neue', Arial, sans-serif;
 	font-style: normal;
