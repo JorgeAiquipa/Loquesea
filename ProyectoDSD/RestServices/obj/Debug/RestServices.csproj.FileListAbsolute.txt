@@ -1,0 +1,10 @@
+E:\ProyectoDSD\RestServices\bin\RestServices.dll.config
+E:\ProyectoDSD\RestServices\bin\RestServices.dll
+E:\ProyectoDSD\RestServices\bin\RestServices.pdb
+E:\ProyectoDSD\RestServices\obj\Debug\RestServices.dll
+E:\ProyectoDSD\RestServices\obj\Debug\RestServices.pdb
+D:\ProyectoDSD\RestServices\bin\RestServices.dll.config
+D:\ProyectoDSD\RestServices\bin\RestServices.dll
+D:\ProyectoDSD\RestServices\bin\RestServices.pdb
+D:\ProyectoDSD\RestServices\obj\Debug\RestServices.dll
+D:\ProyectoDSD\RestServices\obj\Debug\RestServices.pdb
