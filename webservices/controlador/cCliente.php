@@ -3,24 +3,8 @@
 	require_once("../entidades/eCliente.php");
 	$clientes = new Clientes();
 
-	if(isset($_POST['var']) && $_POST['var'] == 'listar'){
-		if(isset($_POST['page']))
-			$page = $_POST['page'];
-		else
-			$page = 1;
-		echo $clientes->listaClientes($page, '');
-	}
-
-	if(isset($_POST['cliente'])){
-		if(isset($_POST['page']))
-			$page = $_POST['page'];
-		else
-			$page = 1;
-		echo $clientes->listaClientes($page, $_POST['cliente']);
-	}
-
-	if(isset($_POST['var']) && $_POST['var'] == 'cargar'){
-		echo $clientes->cargarDatos($_POST['id']);
+    if(isset($_POST['var']) && $_POST['var'] == 'listar'){
+		echo $clientes->listarClientes();
 	}
 
 	if(isset($_POST['var']) && $_POST['var'] == 'grabar'){
@@ -34,9 +18,19 @@
 		if($validar != 'ok')
 			echo $validar;
 		else
-			if(isset($_POST['clienteId']) && $_POST['clienteId'] == '')
+			if(isset($_POST['txtclienteId']) && $_POST['txtclienteId'] == '')
 				echo $clientes->grabar($eCliente);
-			elseif(isset($_POST['clienteId']) && $_POST['clienteId'] != '')
-				$clientes->actualizar($eCliente);
+			elseif(isset($_POST['txtclienteId']) && $_POST['txtclienteId'] != '')
+				echo $clientes->actualizar($eCliente);
 	}
+
+    if(isset($_POST['var']) && $_POST['var'] == 'cargarDatos'){
+        echo $clientes->cargarDatos($_POST['id']);
+    }
+
+    if(isset($_POST['var']) && $_POST['var'] == 'borrar'){
+        echo $clientes->borrarDatos($_POST['id']);
+    }
+
+
 ?>

@@ -1,15 +1,18 @@
 $(document).ready(function() {
+
 	if(gup('id') != '')
 		cargarDatos();
+
 	$('#form1').submit(function() {
 		var id = "";
 		if($('#txtClienteId').val() != ''){
 			id = $('#txtClienteId').val()
 		}
+
 		$.ajax({
 			type: 'POST',
 			url: $(this).attr('action'),
-			data: $(this).serialize() + '&var=grabar&clienteId=' + id,
+			data: $(this).serialize() + '&var=grabar&txtclienteId=' + id,
 			beforeSend: function(){
 				$('.msginfo').fadeOut(10);
 				$(".msginfo").removeClass('colormsgerror colormsgok');
@@ -18,7 +21,7 @@ $(document).ready(function() {
 			},
 			success: function(data) {
 				//alert(data);
-				if(data != ''){
+				if(data == 'Cliente ya esta creado'){
 					$(".msginfo").addClass('colormsgerror');
 					$('.msginfo').html(data);
 					$('.msginfo').fadeIn(500);
@@ -30,14 +33,7 @@ $(document).ready(function() {
 						$('#txtRuc').val('');
 						$('#txtRazonSocial').val('');
 						$('#txtDireccion').val('');
-						$('#txtTelefono').val('');
-						$('#txtCelular').val('');
-						$('#txtContacto').val('');
-						$('#txtEmail').val('');
-						$('#txtAdmContacto').val('');
-						$('#txtAdmTelf').val('');
-						$('#txtAdmEmail').val('');
-						$('#txtAdmCargo').val('');
+						$('#txtTelefono').val('');						
 					}
 				}
 				$('#grabar').removeAttr("disabled");
@@ -55,24 +51,16 @@ function cargarDatos(){
 	$.ajax({
 		type: 'POST',
 		url: 'controlador/cCliente.php',
-		data: 'var=cargar&id=' + Base64.decode(gup('id')),
+		data: 'var=cargarDatos&id=' + gup('id'),
 		success: function(data) {
 			//alert(data);
-			resultados = data.split("|");
-			$('#txtRuc').val(resultados[0]);
-			$('#txtRazonSocial').val(resultados[1]);
-			$('#txtDireccion').val(resultados[2]);
-			$('#txtTelefono').val(resultados[3]);
-			$('#txtCelular').val(resultados[4]);
-			$('#txtContacto').val(resultados[5]);
-			$('#txtEmail').val(resultados[6]);
-			$('#txtAdmContacto').val(resultados[7]);
-			$('#txtAdmTelf').val(resultados[8]);
-			$('#txtAdmEmail').val(resultados[9]);
-			$('#txtAdmCargo').val(resultados[10]);
-			$('#txtClienteId').val(resultados[11]);
-			$('#lblClienteId').html(resultados[11]);
-			$('.titulo_detalle').html(resultados[1]);
+            var clie = JSON.parse(data);  
+            $('#txtClienteId').val(clie.Ruc);				
+			$('#txtRuc').val(clie.Ruc);
+			$('#txtRazonSocial').val(clie.Razonsocial);
+			$('#txtDireccion').val(clie.Direccion);
+			$('#txtTelefono').val(clie.Telefono);
+			$('.titulo_detalle').html(clie.Razonsocial);
 		}
 	});
 }

@@ -19,24 +19,75 @@
 		}
 
 		public function grabar($eCliente){
-			$url = "acá pones la url";
+			$url = "http://localhost:4325/ClienteREST.svc/Clientes";
             $fields = array(
-                            'razon' => urlencode($eCliente->getRazon()),
-                            'ruc' => urlencode($eCliente->getRuc()),
-                            'direccion' => urlencode($eCliente->getDireccion()),
-                            'telf' => urlencode($eCliente->getTelf())
+                            'Razonsocial' => $eCliente->getRazon(),
+                            'Ruc' => $eCliente->getRuc(),
+                            'Direccion' => $eCliente->getDireccion(),
+                            'Telefono' => $eCliente->getTelf()
                             );
-                    $fields_string = "";
-                    foreach($fields as $key=>$value) {
-                        $fields_string .= $key.'='.$value.'&';
-                    }
+            $data_json = json_encode($fields);
             $ch = curl_init();
             curl_setopt($ch,CURLOPT_URL, $url);
-            curl_setopt($ch,CURLOPT_POST, count($fields));
-            curl_setopt($ch,CURLOPT_POSTFIELDS, $fields_string);
+            curl_setopt($ch,CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+            
+            curl_setopt($ch,CURLOPT_POSTFIELDS, $data_json);
             curl_setopt($ch,CURLOPT_RETURNTRANSFER, 1);
             $result = curl_exec($ch);
             curl_close($ch);
+            return $result;
 		}
+
+		public function listarClientes(){
+           $url = "http://localhost:4325/ClienteREST.svc/GetAllClientes/";
+           $ch = curl_init();
+           curl_setopt($ch, CURLOPT_URL, $url);
+           curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+           $result  = curl_exec($ch);
+           curl_close($ch);
+           return $result;
+		}
+
+		public function borrarDatos($id){
+           $url = "http://localhost:4325/ClienteREST.svc/Clientes/".$id;
+           $ch = curl_init();
+           curl_setopt($ch, CURLOPT_URL, $url);
+           curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "DELETE");
+           curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+           $result  = curl_exec($ch);
+           curl_close($ch);
+           return $result;
+		}
+
+        public function cargarDatos($id){		
+			$url = "http://localhost:4325/ClienteREST.svc/Clientes/".$id;
+		    $ch = curl_init();
+            curl_setopt($ch, CURLOPT_URL, $url);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+            $result  = curl_exec($ch);
+            curl_close($ch);
+            return $result;	
+		}		
+
+        public function actualizar($eCliente){
+			$url = "http://localhost:4325/ClienteREST.svc/Clientes";
+            $fields = array(
+                            'Razonsocial' => $eCliente->getRazon(),
+                            'Ruc' => $eCliente->getRuc(),
+                            'Direccion' => $eCliente->getDireccion(),
+                            'Telefono' => $eCliente->getTelf()
+                            );
+            $data_json = json_encode($fields);
+            $ch = curl_init();
+            curl_setopt($ch,CURLOPT_URL, $url);
+            curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json','Content-Length: ' . strlen($data_json)));
+            curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'PUT');
+            curl_setopt($ch, CURLOPT_POSTFIELDS,$data_json);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+            $result = curl_exec($ch);
+            curl_close($ch);
+            return $result;
+		}
+
 	}
 ?>
