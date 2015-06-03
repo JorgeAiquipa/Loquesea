@@ -1,7 +1,7 @@
 <?php
-	/*session_start();
+	session_start();
 	$page_id = "MantProbeteros";
-	if ($_SESSION['permisos'] == 'all' || in_array($page_id, $_SESSION['permisos'])){*/
+	if ($_SESSION['permisos'] == 'all' || in_array($page_id, $_SESSION['permisos'])){
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
 	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -23,7 +23,7 @@
 	</script>
 </head>
 <body>
-	<?php //echo $_SESSION['menu']; ?>
+	<?php echo $_SESSION['menu']; ?>
 	<div id="main-body">
 		<div class="titulo roboto100">Probeteros &raquo; <a class="titulo_detalle roboto300"></a></div>
 		<form id="form1" name="form1" method="post" action="controlador/cProbetero.php">
@@ -59,7 +59,7 @@
 	</div>
 </body>
 <?php
-	/*} else {
+	} else {
 		header("Location: inicio.php");
-	}*/
+	}
 ?>
