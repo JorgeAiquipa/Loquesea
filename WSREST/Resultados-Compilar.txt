@@ -1,3 +1,0 @@
-﻿1>------ Operación Compilar iniciada: proyecto: WSREST, configuración: Debug Any CPU ------
-1>D:\Data\Dev\WSREST\WSREST\WCFDataServiceCliente.svc.cs(16,104,16,105): error CS1031: Se esperaba un tipo
-========== Compilar: 0 correctos, 1 incorrectos, 0 actualizados, 0 omitidos ==========

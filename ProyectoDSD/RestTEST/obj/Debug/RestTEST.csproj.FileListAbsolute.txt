@@ -1,5 +1,0 @@
-E:\ProyectoDSD\RestTEST\obj\Debug\RestTEST.csprojResolveAssemblyReference.cache
-D:\ProyectoDSD\RestTEST\bin\Debug\RestTEST.dll
-D:\ProyectoDSD\RestTEST\bin\Debug\RestTEST.pdb
-D:\ProyectoDSD\RestTEST\obj\Debug\RestTEST.dll
-D:\ProyectoDSD\RestTEST\obj\Debug\RestTEST.pdb
