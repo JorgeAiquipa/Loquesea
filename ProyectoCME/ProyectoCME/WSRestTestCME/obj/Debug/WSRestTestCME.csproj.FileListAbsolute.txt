@@ -1,0 +1,9 @@
+D:\ProyectoCME\ProyectoCME\WSRestTestCME\bin\Debug\WSRestTestCME.dll
+D:\ProyectoCME\ProyectoCME\WSRestTestCME\bin\Debug\WSRestTestCME.pdb
+D:\ProyectoCME\ProyectoCME\WSRestTestCME\obj\Debug\WSRestTestCME.dll
+D:\ProyectoCME\ProyectoCME\WSRestTestCME\obj\Debug\WSRestTestCME.pdb
+C:\ProyectoCME\ProyectoCME\WSRestTestCME\bin\Debug\WSRestTestCME.dll
+C:\ProyectoCME\ProyectoCME\WSRestTestCME\bin\Debug\WSRestTestCME.pdb
+C:\ProyectoCME\ProyectoCME\WSRestTestCME\obj\Debug\WSRestTestCME.csprojResolveAssemblyReference.cache
+C:\ProyectoCME\ProyectoCME\WSRestTestCME\obj\Debug\WSRestTestCME.dll
+C:\ProyectoCME\ProyectoCME\WSRestTestCME\obj\Debug\WSRestTestCME.pdb

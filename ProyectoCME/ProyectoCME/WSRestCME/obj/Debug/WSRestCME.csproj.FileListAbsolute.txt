@@ -1,0 +1,10 @@
+D:\ProyectoCME\ProyectoCME\WSRestCME\bin\WSRestCME.dll.config
+D:\ProyectoCME\ProyectoCME\WSRestCME\bin\WSRestCME.dll
+D:\ProyectoCME\ProyectoCME\WSRestCME\bin\WSRestCME.pdb
+D:\ProyectoCME\ProyectoCME\WSRestCME\obj\Debug\WSRestCME.dll
+D:\ProyectoCME\ProyectoCME\WSRestCME\obj\Debug\WSRestCME.pdb
+C:\ProyectoCME\ProyectoCME\WSRestCME\bin\WSRestCME.dll.config
+C:\ProyectoCME\ProyectoCME\WSRestCME\bin\WSRestCME.dll
+C:\ProyectoCME\ProyectoCME\WSRestCME\bin\WSRestCME.pdb
+C:\ProyectoCME\ProyectoCME\WSRestCME\obj\Debug\WSRestCME.dll
+C:\ProyectoCME\ProyectoCME\WSRestCME\obj\Debug\WSRestCME.pdb
