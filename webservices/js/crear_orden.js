@@ -1,19 +1,4 @@
 $(document).ready(function() {
-		$("#form1").keypress(function(e) {
-			if (e.which == 13) {
-				return false;
-			}
-		});
-		$("#chkPrioridad").live("click", function(){
-			if($('#chkPrioridad').is(':checked')){
-				$('#txtPrioridad').css("display","block");
-				$(".body_guia").css("height","350");
-			} else {
-				$('#txtPrioridad').css("display","none");
-				$(".body_guia").css("height","310");
-			}
-		});
-		//cargarDiametro();
 		$('#txtNombreEmpresa').focus();
 		$('#tabla_testigos').flexigrid({
 			url: '',
@@ -51,7 +36,10 @@ $(document).ready(function() {
 				{nombre:'testigosmanual', campo: '#txtTestigos'}
 				]
 		});
-
+		
+			function sortAlpha(com){ 
+				jQuery(".tabla_testigos").flexReload();
+			}
 			function isNumber(n) {
 				return !isNaN(parseFloat(n)) && isFinite(n);
 			}
@@ -62,19 +50,10 @@ $(document).ready(function() {
 				$("#msginfo").fadeIn(300);
 				$("#msginfo").html('ERROR : '+mensaje);
 			}
-
-			function imprime_adv(campo,mensaje){
-				$('#'+campo).addClass("errormsgbg");
-				$('#'+campo).focus();
-				$("#msginfo").addClass('colormsgadv');
-				$("#msginfo").fadeIn(300);
-				$("#msginfo").html('ADVERTENCIA : '+mensaje);
-			}
-
 			function restart_notifications(){
 				$(".errormsgbg").removeClass("errormsgbg");
 				$("#msginfo").fadeOut(200);
-				$("#msginfo").removeClass('colormsgerror colormsgok colormsgadv');
+				$("#msginfo").removeClass('colormsgerror colormsgok');
 			}
 			$('#btnCrear').live('click',function(){
 				var edad, cadena, total=0, cont=1, error="", error2="";
@@ -85,7 +64,7 @@ $(document).ready(function() {
 				for(var i=0; i<document.getElementById('tabla_testigos').rows.length; i++){
 					var caja = "#txtNroCaja" + (parseFloat(i)+1);
 					var caja2 = "#txtAlmacen" + (parseFloat(i)+1);
-					if($('#slcNroCaja').val() == $(caja).val())
+					if($('#txt_NroCaja').val() == $(caja).val())
 						error = "txtNroCaja" + (parseFloat(i)+1);
 					else if($('#txtValor1').val() + $('#txtValor2').val() == $(caja2).val())
 						error2 = "txtAlmacen" + (parseFloat(i)+1);
@@ -107,8 +86,8 @@ $(document).ready(function() {
 					imprime_error('slcEdad','Por favor seleccione la edad de ensayo');
 				} else if(($("#slcTestigos").val()=='NN')||(($("#slcTestigos").val()=='manual')&&($("#txtTestigos").val()==''))){
 					imprime_error('slcTestigos','Por favor seleccione el número de testigos');
-				} else if($("#slcNroCaja").val()==''){
-					imprime_error('slcNroCaja','Por favor seleccione el número de caja');
+				} else if($("#txt_NroCaja").val()==''){
+					imprime_error('txt_NroCaja','Por favor seleccione el número de caja');
 				} else if(error != ''){
 					imprime_error(error,'No se puede repetir la caja seleccionada');
 				} else if(error2 != ''){
@@ -133,11 +112,11 @@ $(document).ready(function() {
 						cadena = cadena + '<td width="100"><div align="center">' + $('#txtFecha').val() + ' ' + $('#txtHora').val() + '</div></td>';						
 						cadena = cadena + '<td width="80"><div align="center"><input type="text" id="txtEdad'+ cont + '" class="textfields_tabla textfields_tabla_size1" maxlength="2" value="' + edad + '" onkeypress="return soloNumeros(event);" readonly="true" /></div></td>';
 						cadena = cadena + '<td width="90"><div align="center"><input type="text" id="txtPeso'+ cont + '" class="textfields_tabla textfields_tabla_size1" onkeypress="return soloNumeros(event);" readonly="true" /></div></td>';
-						cadena = cadena + '<td width="90"><div align="center"><input type="text" id="txtDiametro'+ cont + '" class="textfields_tabla textfields_tabla_size1" onkeypress="return soloNumeros(event);" value="' + $('#txtDiametroGeneral').val() + '" readonly="true" /></div></td>';
+						cadena = cadena + '<td width="90"><div align="center"><input type="text" id="txtDiametro'+ cont + '" class="textfields_tabla textfields_tabla_size1" onkeypress="return soloNumeros(event);" value="10.1" readonly="true" /></div></td>';
 						cadena = cadena + '<td width="60"><div align="center"><img id="F' + (cont-1) + '" src="images/transparentdot.gif" class="boton_codigo_barras spritefull bcb_false" title="Asignar código" /></div></td>';
 						cadena = cadena + '<td width="110"><div align="center"></div></td>';
 						cadena = cadena + '<td width="80"><div align="center"><input type="text" id="txtAlmacen'+ cont + '" class="textfields_tabla textfields_tabla_size1" readonly="true" value="' + $('#txtValor1').val() + $('#txtValor2').val() + '" /></div></td>';
-						cadena = cadena + '<td width="80"><div align="center"><input type="text" id="txtNroCaja'+ cont + '" class="textfields_tabla textfields_tabla_size1" readonly="true" value="' + $('#slcNroCaja').val() + '" /></div></td>';
+						cadena = cadena + '<td width="80"><div align="center"><input type="text" id="txtNroCaja'+ cont + '" class="textfields_tabla textfields_tabla_size1" readonly="true" value="' + $('#txt_NroCaja').val() + '" /></div></td>';
 						/*cadena = cadena + '<td width="40"><div align="center"><img src="images/transparentdot.gif" class="borrar_fila spritefull borrar_fila_bg" title="Borrar" /></div></td>';*/
 						cadena = cadena + '</tr>';
 						$("#tabla_testigos").append(cadena);
@@ -157,31 +136,7 @@ $(document).ready(function() {
 					});
 				}
 			});//btnBorrar
-			$('.borrar_fila').live('click',function(){
-				id = $(this).parents("tr").find("td").find("div").eq(0).html();
-				$(this).closest("tr").fadeOut("fast", function(){
-					$(this).closest("tr").remove();
-				});
-				for(var i=id; i<document.getElementById('tabla_testigos').rows.length; i++){
-					var edad = "#txtEdad" + (parseFloat(i)+1);
-					var peso = "#txtPeso" + (parseFloat(i)+1);
-					var diametro = "#txtDiametro" + (parseFloat(i)+1);
-					var posicion = "#txtAlmacen" + (parseFloat(i)+1);
-					var caja = "#txtNroCaja" + (parseFloat(i)+1);
-					document.getElementById('tabla_testigos').rows[i].cells[0].innerHTML = '<div align="center">' + i + '</div>';
-					document.getElementById('tabla_testigos').rows[i].cells[1].innerHTML = '<div align="center"><input type="text" id="txtCodigo'+ i + '" class="textfields_tabla textfields_tabla_size2" value="' + $('#txtGuiaCamion').val() + '-' + i + '" /></div></td>';
-					document.getElementById('tabla_testigos').rows[i].cells[3].innerHTML = '<div align="center"><input type="text" id="txtEdad'+ i + '" class="textfields_tabla textfields_tabla_size1" maxlength="2" onkeypress="return soloNumeros(event);" value="' + $(edad).val() + '" /></div></td>';
-					document.getElementById('tabla_testigos').rows[i].cells[4].innerHTML = '<div align="center"><input type="text" id="txtPeso'+ i + '" class="textfields_tabla textfields_tabla_size1" onkeypress="return soloNumeros(event);" value="' + $(peso).val() + '" /></div>';
-					document.getElementById('tabla_testigos').rows[i].cells[5].innerHTML = '<div align="center"><input type="text" id="txtDiametro'+ i + '" class="textfields_tabla textfields_tabla_size1" onkeypress="return soloNumeros(event);" value="' + $(diametro).val() + '" /></div>';
-					document.getElementById('tabla_testigos').rows[i].cells[8].innerHTML = '<div align="center"><input type="text" id="txtAlmacen'+ i + '" class="textfields_tabla textfields_tabla_size1" value="' + $(posicion).val() + '" /></div>';
-					document.getElementById('tabla_testigos').rows[i].cells[9].innerHTML = '<div align="center"><input type="text" id="txtNroCaja'+ i + '" class="textfields_tabla textfields_tabla_size1" readonly="true" /></div>';
-					if($.trim(document.getElementById('tabla_testigos').rows[i].cells[7].innerHTML.replace(/(<([^>]+)>)/g,'')) == ''){
-						document.getElementById('tabla_testigos').rows[i].cells[6].innerHTML = '<div align="center"><img id="F' + (i-1) + '" src="images/transparentdot.gif" class="boton_codigo_barras spritefull bcb_false" /></div>';//corrobora si es que no tiene código de barras
-					} else {//si ya tiene código de barras pone la imagen correspondiente
-						document.getElementById('tabla_testigos').rows[i].cells[6].innerHTML = '<div align="center"><img id="F' + (i-1) + '" src="images/transparentdot.gif" class="boton_codigo_barras spritefull bcb_true" title="Editar código" /></div>';					
-					}
-				}
-			});//Borrar una fila
+
 			$('.boton_codigo_barras').live('click',function(){
 				var id = $(this).attr('id');
 				id = id.substring(1);
@@ -193,6 +148,17 @@ $(document).ready(function() {
 				});
 				$('#txtCodigoBarras').focus();
 			});//popup código de barras
+			
+			$("#slcEdad").change(function() {
+				edad = $("#slcEdad").val();
+				if(edad=='manual'){
+					$("#txtEdad").show(200);
+					$("#txtEdad").focus();
+				} else {
+					$("#txtEdad").hide(200);
+					$("#txtEdad").val('');
+				}
+			});//funcion selectbox edad
 			
 			$("#slcTestigos").change(function() {
 				testigos = $("#slcTestigos").val();
@@ -235,74 +201,122 @@ $(document).ready(function() {
 				}
 			}
 			$('#form1').submit(function() {
+				$('#btnGrabar').attr("disabled", "disabled");
+				$('#loader').html('<img src="images/loader.gif" />');
 				restart_notifications();
-				if($("#txtNombreEmpresa").val() == ''){
-					imprime_error('txtNombreEmpresa','Por favor ingrese la empresa');
-				} else if($("#txtOrdenServicio").val() == ''){
-					imprime_error('txtOrdenServicio','Por favor ingrese la orden de servicio');
-				} else if($("#slcObra").val() == ''){
-					imprime_error('slcObra','Por favor seleccione la obra');
-				} else if($("#slcAcuerdo").val() == ''){
-					imprime_error('slcAcuerdo','Por favor seleccione el acuerdo comercial');
-				} else if($("#txtGuiaCamion").val() == ''){
-					imprime_error('txtGuiaCamion','Por favor ingrese la guía de camión');
-				} else if($("#txtResistencia").val() == ''){
-					imprime_error('txtResistencia','Por favor ingrese la resistencia');
-				} else if($('#txtFecha').val() == ''){
-					imprime_error('txtFecha','Por favor ingrese la fecha de moldeo');
-				} else if($('#txtHora').val() == ''){
-					imprime_error('txtHora','Por favor ingrese la hora de moldeo');
-				} else if($('#txtFecha2').val() == ''){
-					imprime_error('txtFecha2','Por favor ingrese la fecha de recojo');
-				} else if($('#txtHora2').val() == ''){
-					imprime_error('txtHora2','Por favor ingrese la hora de recojo');
-				} else if(($("#slcEdad").val()=='NN')||(($("#slcEdad").val()=='manual')&&($("#txtEdad").val()==''))){
-					imprime_error('slcEdad','Por favor seleccione la edad de ensayo');
-				} else if(($("#slcTestigos").val()=='NN')||(($("#slcTestigos").val()=='manual')&&($("#txtTestigos").val()==''))){
-					imprime_error('slcTestigos','Por favor seleccione el número de testigos');
-				} else if($("#slcNroCaja").val()==''){
-					imprime_error('slcNroCaja','Por favor seleccione el número de caja');
-				} else if(error != ''){
-					imprime_error(error,'No se puede repetir la caja seleccionada');
-				} else if(error2 != ''){
-					imprime_error(error2,'No se puede repetir la posición seleccionada');
-				} else if($('#txtValor1').val() == '' && $('#txtValor2').val() == ''){
-					imprime_error('btnAlmacen','Por favor seleccione la posición del cuarto de curación');
-				} else {
-					if($('#slcTestigos').val() == 'manual'){
-						total = $('#txtTestigos').val();
-					} else {
-						total = $('#slcTestigos').val();
-					}
-					if($('#slcEdad').val() == 'manual'){
-						edad = $('#txtEdad').val();
-					} else {
-						edad = $('#slcEdad').val();
-					}
-					for(var i=1; i<=total; i++){
-						cadena = '<tr id="TEST-' + i + '">';
-						cadena = cadena + '<td width="40"><div align="center">' + cont + '</div></td>';
-						cadena = cadena + '<td width="150"><div align="center"><input type="text" id="txtCodigo'+ cont + '" class="textfields_tabla textfields_tabla_size2" value="' + $('#txtGuiaCamion').val() + '-' + cont + '" /></div></td>';
-						cadena = cadena + '<td width="100"><div align="center">' + $('#txtFecha').val() + ' ' + $('#txtHora').val() + '</div></td>';						
-						cadena = cadena + '<td width="80"><div align="center"><input type="text" id="txtEdad'+ cont + '" class="textfields_tabla textfields_tabla_size1" maxlength="2" value="' + edad + '" onkeypress="return soloNumeros(event);" readonly="true" /></div></td>';
-						cadena = cadena + '<td width="90"><div align="center"><input type="text" id="txtPeso'+ cont + '" class="textfields_tabla textfields_tabla_size1" onkeypress="return soloNumeros(event);" readonly="true" /></div></td>';
-						cadena = cadena + '<td width="90"><div align="center"><input type="text" id="txtDiametro'+ cont + '" class="textfields_tabla textfields_tabla_size1" onkeypress="return soloNumeros(event);" value="' + $('#txtDiametroGeneral').val() + '" readonly="true" /></div></td>';
-						cadena = cadena + '<td width="60"><div align="center"><img id="F' + (cont-1) + '" src="images/transparentdot.gif" class="boton_codigo_barras spritefull bcb_false" title="Asignar código" /></div></td>';
-						cadena = cadena + '<td width="110"><div align="center"></div></td>';
-						cadena = cadena + '<td width="80"><div align="center"><input type="text" id="txtAlmacen'+ cont + '" class="textfields_tabla textfields_tabla_size1" readonly="true" value="' + $('#txtValor1').val() + $('#txtValor2').val() + '" /></div></td>';
-						cadena = cadena + '<td width="80"><div align="center"><input type="text" id="txtNroCaja'+ cont + '" class="textfields_tabla textfields_tabla_size1" readonly="true" value="' + $('#slcNroCaja').val() + '" /></div></td>';
-						/*cadena = cadena + '<td width="40"><div align="center"><img src="images/transparentdot.gif" class="borrar_fila spritefull borrar_fila_bg" title="Borrar" /></div></td>';*/
-						cadena = cadena + '</tr>';
-						$("#tabla_testigos").append(cadena);
-						cont++;
-					}
-					$('#txtValor1').val('');
-					$('#txtValor2').val('');
-					$('#almacen_sel').html('Seleccione la posición');
+				var cadena = "", cont = 1, idCodigo="", idEdad="", idPeso="", idDiametro="";
+				for(var i=0; i<document.getElementById('tabla_testigos').rows.length; i++){
+					idCodigo = '#' + 'txtCodigo' + cont;
+					idEdad = '#' + 'txtEdad' + cont;
+					idPeso = '#' + 'txtPeso' + cont;
+					idDiametro = '#' + 'txtDiametro' + cont;
+					idAlmacen = "#" + 'txtAlmacen' + cont;
+					idNroCaja = "#" + 'txtNroCaja' + cont;
+					cadena = cadena + $(idCodigo).val() + "@" + document.getElementById('tabla_testigos').rows[i].cells[2].innerHTML.replace(/(<([^>]+)>)/g,'') + "@" + $(idEdad).val() + "@" + $(idPeso).val() + "@" + $(idDiametro).val() + "@" + document.getElementById('tabla_testigos').rows[i].cells[7].innerHTML.replace(/(<([^>]+)>)/g,'') + "@" + $(idAlmacen).val() + "@" + $(idNroCaja).val() + "|";
+					cont++;
 				}
+				$.ajax({
+					type: 'POST',
+					url: $(this).attr('action'),
+					data: $(this).serialize() + '&detalle=' + cadena,
+					success: function(data) {
+						//alert(data);
+						if(data == 'error01'){
+							imprime_error('txtNombreEmpresa','Por favor complete el campo indicado');
+						} else if(data == 'error02'){
+							imprime_error('txtOrdenServicio','Por favor complete el campo indicado');
+						} else if(data == 'error03'){
+							imprime_error('slcObra','Por favor complete el campo indicado');
+						} else if(data == 'error05'){
+							imprime_error('txtGuiaCamion','Por favor complete el campo indicado');
+						} else if(data == 'error06'){
+							imprime_error('txtEstructura','Por favor complete el campo indicado');
+						} else if(data == 'error07'){
+							imprime_error('txtResistencia','Por favor complete el campo indicado');
+						} else if(data == 'error13'){
+							imprime_error('txtFecha2','Por favor complete el campo indicado');
+						} else if(data == 'error14'){
+							imprime_error('','Revise las fechas y horas de moldeo y recojo');
+						} else if(data == 'error15'){
+							imprime_error('txtFecha','Revise la fecha de moldeo');
+						} else if(data == 'error08'){
+							imprime_error('','Debe ingresar los testigos');
+						} else if(data == 'error09'){
+							imprime_error('','Complete todos los datos de los testigos');
+						} else if(data == 'error10'){
+							imprime_error('','Algún formato de posición está mal ingresado');
+						} else if(data == 'error11'){
+							imprime_error('','Se está repitiendo algún código de barras');
+						} else if(data.substring(0,8) == 'La orden'){
+							imprime_error('',data);
+						} else if(data.substring(0,9) == 'El código'){
+							imprime_error('',data);
+						} else if(data.substring(0,7) == 'La caja'){
+							imprime_error('',data);
+						} else if(data == ''){
+							$("#msginfo").addClass('colormsgok');
+							$("#msginfo").fadeIn(300);
+							$("#msginfo").html('La orden ha sido guardada con éxito');
+							$('#txtNombreEmpresa').val('');
+							$('#txtCodigoCliente').val('');
+							$('#txtOrdenServicio').val('');
+							$('#slcObra').html('');
+							$('#txtGuiaCamion').val('');
+							$('#txtEstructura').val('');
+							$('#txtComentarios').val('');
+							$('#txtResistencia').val('');
+							$('#txtFecha').val('');
+							$('#txtFecha2').val('');
+							$('#txtHora').val('');
+							$('#txtHora2').val('');
+							$('#slcEdad').val('-');
+							$('#txtEdad').val('');
+							$("#txtEdad").hide(200);
+							$('#txtFecha').val('');
+							$('#slcTestigos').val('3');
+							$('#txtTestigos').val('');
+							$("#txtTestigos").hide(200);
+							$('#txtValor1').val('');
+							$('#txtValor2').val('');
+							$('#txt_NroCaja').find('option').remove();
+							$('#almacen_sel').html('Seleccione la posición');
+							borrarTabla();
+						} else {
+							imprime_error('',data);
+						}
+						$('#loader').html('');
+						$('#btnGrabar').removeAttr("disabled");
+					}
+				});
 				return false;
 			});
-			
+			//autocompletar
+			$(function() {
+				$("#txtNombreEmpresa").autocomplete({
+					source: 'controlador/cCombo.php?var=ordenes',
+					select: function(event, ui){
+						$('#txtCodigoCliente').val(ui.item.id);
+						$.ajax({
+							type: 'POST',
+							url: 'controlador/cCombo.php',
+							data: 'clienteId=' + $('#txtCodigoCliente').val(),
+							beforeSend: function() {
+								$('#slcObra').find('option').remove();
+							},
+							success: function(data) {
+								console.log(data);
+								var option = data.split('|');
+								$('#slcObra').append($("<option></option>").attr("value","").text(""));
+								for(var i=0; i<option.length-1; i++){
+									var datos = option[i].split('/');
+									$('#slcObra').append($("<option></option>").attr("value",datos[0]).text(datos[1]));
+								}
+							}
+						});
+					}
+				});
+			});
+
 			$( "#tabs" ).tabs({ fx: { opacity: 'toggle', duration: 'fast' }, selected: 0 });
 
 			$('#btnGuiaCamion').live('click', function(){
@@ -314,6 +328,97 @@ $(document).ready(function() {
 					imprime_error('','Debe ingresar la orden de servicio');
 				}
 			});
+});
+
+//cuando se aprieta el botón Buscar (almacén)
+$('#btnAlmacen').live('click', function(){
+	$.ajax({
+		type: 'POST',
+		url: 'controlador/cOrden.php',
+		data: 'var=anaqueles',
+		beforeSend: function(){
+			$('#loader2').html('<img src="images/loader.gif" />');
+			$('#btnAlmacen').attr("disabled","disabled");
+		},
+		success: function(data) {
+			//alert(data);
+			var datos = data.split('|');
+			for(var i=0; i<datos.length-1; i++){
+				var arr = datos[i].split(',');
+				var cod = '#' + arr[1];
+				var clase = '' + arr[0];
+				$(cod).html(arr[1]);
+				if(clase == ''){
+					$(cod).removeClass('anaquel-color-lleno');
+					$(cod).addClass('anaquel-color-vacio');
+				} else {
+					$(cod).removeClass('anaquel-color-vacio');
+					$(cod).addClass('anaquel-color-lleno');
+				}
+			}
+			$('#anaqueles').bPopup({
+				fadeSpeed: 'fast', //can be a string ('slow'/'fast') or int
+				followSpeed: 1500, //can be a string ('slow'/'fast') or int
+				modalColor: '#333'
+			});
+			$('#loader2').html('');
+			$('#btnAlmacen').removeAttr("disabled");
+		}
+	});
+});
+
+//cuando seleccionas un anaquel
+$('.anaquel-color-vacio').live('click', function(){
+	var id = $(this).attr("id");
+	$('#txtValor1').val(id);
+	$.ajax({
+		type: 'POST',
+		url: 'controlador/cOrden.php',
+		data: 'anaquel=' + $('#txtValor1').val(),
+		beforeSend: function(){
+			$('#loader2').html('<img src="images/loader.gif" />');
+		},
+		success: function(data) {
+			//alert(data);
+			var datos = data.split('|');
+			for(var i=0; i<datos.length-1; i++){
+				var arr = datos[i].split(',');
+				var cod = '#' + arr[1];
+				var clase = '' + arr[0];
+				$(cod).html(arr[1]);
+				if(clase == ''){
+					$(cod).removeClass('fila-llena');
+					$(cod).addClass('fila-vacia');
+				} else {
+					$(cod).removeClass('fila-vacia');
+					$(cod).addClass('fila-llena');
+				}
+			}
+			$('#profundidades').bPopup({
+				fadeSpeed: 'fast', //can be a string ('slow'/'fast') or int
+				followSpeed: 1500, //can be a string ('slow'/'fast') or int
+				modalColor: '#333'
+			});
+			$('#loader2').html('');
+		}
+	});
+	$('#anaqueles').bPopup().close();
+});
+
+//cuando seleccionas un fila
+$('.fila-vacia').live('click', function(){
+	var id = $(this).attr("id");
+	$('#txtValor2').val(id);
+	$('#almacen_sel').html('Usted Seleccionó: ' + $('#txtValor1').val() + $('#txtValor2').val());
+	$('#profundidades').bPopup().close();
+});
+
+$('#btnEditar').live('click', function(){
+	$('#popup_modificar').bPopup({
+		fadeSpeed: 'fast', //can be a string ('slow'/'fast') or int
+		followSpeed: 1500, //can be a string ('slow'/'fast') or int
+		modalColor: '#333'
+	});
 });
 
 //datepicker
@@ -329,14 +434,6 @@ $(function() {
 		minuteText: 'Minuto'
 	});
 	$('#txtHora2').timepicker({
-		currentText: 'Actual',
-   		closeText: 'Listo',
-		timeOnlyTitle: 'Escoja la hora',
-		timeText: 'Tiempo',
-		hourText: 'Hora',
-		minuteText: 'Minuto'
-	});
-	$('#txtHora3').timepicker({
 		currentText: 'Actual',
    		closeText: 'Listo',
 		timeOnlyTitle: 'Escoja la hora',
@@ -380,18 +477,6 @@ function asignarCodigo(){
 	document.getElementById('tabla_testigos').rows[$('#txtId').val()].cells[6].innerHTML = '<div align="center"><img id="F' + $('#txtId').val() + '" src="images/transparentdot.gif" class="boton_codigo_barras spritefull bcb_true" title="Editar código" /></div>';
 	$('#popup_codigo_barras').bPopup().close();
 	$('#txtCodigoBarras').val('');
-}
-
-function cargarDiametro(){
-	$.ajax({
-		type: 'POST',
-		url: 'controlador/cOrden.php',
-		data: 'var=diametro',
-		success: function(data) {
-			//alert(data);
-			$('#txtDiametroGeneral').val(data);
-		}
-	});
 }
 
 //borra la tabla de testigos

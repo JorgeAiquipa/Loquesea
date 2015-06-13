@@ -1,7 +1,7 @@
 <?php
-	/*session_start();
+	session_start();
 	$page_id = "CrearOrden";
-	if ($_SESSION['permisos'] == 'all' || in_array($page_id, $_SESSION['permisos'])){*/
+	if ($_SESSION['permisos'] == 'all' || in_array($page_id, $_SESSION['permisos'])){
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
 	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -13,6 +13,7 @@
 	<link href="css/estilosCME.css?v=2.0" rel="stylesheet" type="text/css">
     	<link href="css/jquery.alerts.css" rel="stylesheet" type="text/css">
     	<link href="css/calendar.css" rel="stylesheet" type="text/css">
+    	<link rel="stylesheet" type="text/css" href="css/jquery.autocomplete.css">
 	<link rel="stylesheet" type="text/css" href="js/flexigrid/css/flexigrid/flexigrid.css">
 	<link href="js/jqueryUi/css/ui-lightness/jquery-ui-1.8.11.custom.css" rel="stylesheet" type="text/css">
         <link href="css/jquery-ui-timepicker-addon.css" rel="stylesheet" type="text/css">
@@ -21,14 +22,15 @@
 	<script type="text/javascript" src="js/flexigrid/flexigrid.js"></script>
 	<script type="text/javascript" src="js/crear_orden.js"></script>
 	<script type="text/javascript" src="js/jquery.alerts.js"></script>
+	<script type="text/javascript" src="js/jquery.autocomplete.js"></script>
 	<script type="text/javascript" src="js/jqueryUi/js/jquery-ui-1.8.11.custom.min.js"></script>
 	<script type="text/javascript" src="js/jquery.bpopup.js"></script>
   	<script type="text/javascript" src="js/jquery-ui-timepicker-addon.js"></script>
-<!--	<script type="text/javascript" src="js/menu.js"></script>-->
+	<script type="text/javascript" src="js/menu.js"></script>
 </head>
 <body>
-<?php //echo $_SESSION['menu']; ?>
-<form id="form1" name="form1" method="post" action="" autocomplete="off">
+<?php echo $_SESSION['menu']; ?>
+<form id="form1" name="form1" method="post" action="controlador/cOrden.php" autocomplete="off">
 <input type="hidden" name="txtIdOculto" id="txtIdOculto" value="<?php echo md5('guia');?>" />
 <input type="hidden" id="txtValor1" />
 <input type="hidden" id="txtValor2" />
@@ -39,11 +41,6 @@
 		<ul class="guia_lista1 cabecera_lista_izq">
         	<li><a class="etiqueta_guia1">Nombre empresa :</a><input class="textfields txtfCliente" id="txtNombreEmpresa" name="txtNombreEmpresa" type="text" maxlength="30" tabindex="1"/></li>
 			<li><a class="etiqueta_guia1">Código cliente :</a><input class="textfields txtfcabecera" id="txtCodigoCliente" name="txtCodigoCliente" type="text" maxlength="30" tabindex="3" readonly="true"/></li>
-            <li><a class="etiqueta_guia1">Acuerdo comercial N&deg; :</a>
-                <select class="selectguia" id="slcAcuerdo" name="slcAcuerdo">
-                    <option value=""></option>
-                </select>
-            </li>
 		</ul>
 		<ul class="guia_lista1 cabecera_lista_der">
 			<li><a class="etiqueta_guia1">N&deg; orden de servicio :</a><input class="textfields txtfcabecera" id="txtOrdenServicio" name="txtOrdenServicio" type="text" maxlength="15" tabindex="2"/></li>
@@ -61,23 +58,14 @@
 			<li><textarea class="textfields txtarea_body" name="txtEstructura" id="txtEstructura" name="txtEstructura" tabindex="7" maxlength="160"></textarea></li>	
 			<li><a class="etiqueta_guia1">Comentarios :</a></li>
 			<li><textarea class="textfields txtarea_body" name="txtComentarios" id="txtComentarios" name="txtComentarios" tabindex="12" maxlength="100"></textarea></li>
-			<li><a class="etiqueta_guia1">Probetero :</a></li>
-			<li>
-				<select class="selectguia select_size1" id="slcProbetero" name="slcProbetero">
-		        		<option value=""></option>
-		        	</select>
-			</li>
-			<li><a class="etiqueta_guia2">Prioridad</a> <input type="checkbox" id="chkPrioridad" name="chkPrioridad" /> 
-				<textarea class="textfields txtarea_body" name="txtPrioridad" id="txtPrioridad" tabindex="12" maxlength="100"></textarea>
-			</li>
 		</ul><!--cabecera_lista_izq-->
 		<ul class="guia_lista1 cabecera_lista_der">
 			<li><a class="etiqueta_guia1">Resistencia (kg/cm²) :</a><input class="textfields txtfcabecera" id="txtResistencia" name="txtResistencia" type="text" maxlength="30" tabindex="8" onkeypress="return soloNumeros(event);" /></li>
 			<li><a class="etiqueta_guia1">Fecha de moldeo :</a><input class="textfields txtfFecha" id="txtFecha" name="txtFecha" type="text" maxlength="10" tabindex="9" readonly="true" />
-            			<input class="textfields txtfHora" id="txtHora" name="txtHora" type="text" maxlength="10" tabindex="9" />
+            			<input class="textfields txtfHora" id="txtHora" name="txtHora" type="text" maxlength="10" tabindex="9" readonly="true" />
            		</li>
 			<li><a class="etiqueta_guia1">Fecha de recojo :</a><input class="textfields txtfFecha" id="txtFecha2" name="txtFecha2" type="text" maxlength="10" tabindex="9" readonly="true" />
-            			<input class="textfields txtfHora" id="txtHora2" name="txtHora2" type="text" maxlength="10" />
+            			<input class="textfields txtfHora" id="txtHora2" name="txtHora2" type="text" maxlength="10"  readonly="true" />
            		</li>
 			<li><a class="etiqueta_guia1">Edad de ensayo :</a>
 				<select tabindex="10" id="slcEdad" name="slcEdad" class="selectguia">
@@ -98,11 +86,10 @@
                     			<option value="2">2</option>
 					<!--<option value="manual">manual</option>-->
 				</select>
+				<input class="textfields txtfmanual" id="txtTestigos" name="txtTestigos" type="text" maxlength="2"/>
 			</li>
 			<li><a class="etiqueta_guia1">N&deg; de caja :</a>
-				<select tabindex="11" id="slcNroCaja" name="slcNroCaja" class="selectguia">
-					
-				</select>
+				<input class="textfields txtfHora" id="txt_NroCaja" name="txt_NroCaja" type="text" maxlength="4" />
 				<input class="textfields txtfmanual" id="txtTestigos" name="txtTestigos" type="text" maxlength="2"/>
 			</li>
 			<li>
@@ -141,20 +128,22 @@
 			<li><a id="10" class="anaquel anaquel-color-vacio">10</a></li>
 			<li><a id="11" class="anaquel anaquel-color-vacio">11</a></li>
 			<li><a id="12" class="anaquel anaquel-color-vacio">12</a></li>
+		</ul>
+		<ul class="anaqueles2">
 			<li><a id="13" class="anaquel anaquel-color-vacio">13</a></li>
 			<li><a id="14" class="anaquel anaquel-color-vacio">14</a></li>
 			<li><a id="15" class="anaquel anaquel-color-vacio">15</a></li>
 			<li><a id="16" class="anaquel anaquel-color-vacio">16</a></li>
 			<li><a id="17" class="anaquel anaquel-color-vacio">17</a></li>
 			<li><a id="18" class="anaquel anaquel-color-vacio">18</a></li>
-		</ul>
-		<ul class="anaqueles2">
 			<li><a id="19" class="anaquel anaquel-color-vacio">19</a></li>
 			<li><a id="20" class="anaquel anaquel-color-vacio">20</a></li>
 			<li><a id="21" class="anaquel anaquel-color-vacio">21</a></li>
 			<li><a id="22" class="anaquel anaquel-color-vacio">22</a></li>
 			<li><a id="23" class="anaquel anaquel-color-vacio">23</a></li>
 			<li><a id="24" class="anaquel anaquel-color-vacio">24</a></li>
+		</ul>
+		<ul class="anaqueles3">
 			<li><a id="25" class="anaquel anaquel-color-vacio">25</a></li>
 			<li><a id="26" class="anaquel anaquel-color-vacio">26</a></li>
 			<li><a id="27" class="anaquel anaquel-color-vacio">27</a></li>
@@ -168,7 +157,7 @@
 			<li><a id="35" class="anaquel anaquel-color-vacio">35</a></li>
 			<li><a id="36" class="anaquel anaquel-color-vacio">36</a></li>
 		</ul>
-		<ul class="anaqueles3">
+		<ul class="anaqueles4">
 			<li><a id="37" class="anaquel anaquel-color-vacio">37</a></li>
 			<li><a id="38" class="anaquel anaquel-color-vacio">38</a></li>
 			<li><a id="39" class="anaquel anaquel-color-vacio">39</a></li>
@@ -181,20 +170,22 @@
 			<li><a id="46" class="anaquel anaquel-color-vacio">46</a></li>
 			<li><a id="47" class="anaquel anaquel-color-vacio">47</a></li>
 			<li><a id="48" class="anaquel anaquel-color-vacio">48</a></li>
+		</ul>
+		<ul class="anaqueles5">
 			<li><a id="49" class="anaquel anaquel-color-vacio">49</a></li>
 			<li><a id="50" class="anaquel anaquel-color-vacio">50</a></li>
 			<li><a id="51" class="anaquel anaquel-color-vacio">51</a></li>
 			<li><a id="52" class="anaquel anaquel-color-vacio">52</a></li>
 			<li><a id="53" class="anaquel anaquel-color-vacio">53</a></li>
 			<li><a id="54" class="anaquel anaquel-color-vacio">54</a></li>
-		</ul>
-		<ul class="anaqueles4">
 			<li><a id="55" class="anaquel anaquel-color-vacio">55</a></li>
 			<li><a id="56" class="anaquel anaquel-color-vacio">56</a></li>
 			<li><a id="57" class="anaquel anaquel-color-vacio">57</a></li>
 			<li><a id="58" class="anaquel anaquel-color-vacio">58</a></li>
 			<li><a id="59" class="anaquel anaquel-color-vacio">59</a></li>
 			<li><a id="60" class="anaquel anaquel-color-vacio">60</a></li>
+		</ul>
+		<ul class="anaqueles6">
 			<li><a id="61" class="anaquel anaquel-color-vacio">61</a></li>
 			<li><a id="62" class="anaquel anaquel-color-vacio">62</a></li>
 			<li><a id="63" class="anaquel anaquel-color-vacio">63</a></li>
@@ -208,7 +199,7 @@
 			<li><a id="71" class="anaquel anaquel-color-vacio">71</a></li>
 			<li><a id="72" class="anaquel anaquel-color-vacio">72</a></li>
 		</ul>
-		<ul class="anaqueles5">
+		<ul class="anaqueles7">
 			<li><a id="73" class="anaquel anaquel-color-vacio">73</a></li>
 			<li><a id="74" class="anaquel anaquel-color-vacio">74</a></li>
 			<li><a id="75" class="anaquel anaquel-color-vacio">75</a></li>
@@ -221,50 +212,6 @@
 			<li><a id="82" class="anaquel anaquel-color-vacio">82</a></li>
 			<li><a id="83" class="anaquel anaquel-color-vacio">83</a></li>
 			<li><a id="84" class="anaquel anaquel-color-vacio">84</a></li>
-			<li><a id="85" class="anaquel anaquel-color-vacio">85</a></li>
-			<li><a id="86" class="anaquel anaquel-color-vacio">86</a></li>
-			<li><a id="87" class="anaquel anaquel-color-vacio">87</a></li>
-			<li><a id="88" class="anaquel anaquel-color-vacio">88</a></li>
-			<li><a id="89" class="anaquel anaquel-color-vacio">89</a></li>
-			<li><a id="90" class="anaquel anaquel-color-vacio">90</a></li>
-		</ul>
-		<ul class="anaqueles6">
-			<li><a id="91" class="anaquel anaquel-color-vacio">91</a></li>
-			<li><a id="92" class="anaquel anaquel-color-vacio">92</a></li>
-			<li><a id="93" class="anaquel anaquel-color-vacio">93</a></li>
-			<li><a id="94" class="anaquel anaquel-color-vacio">94</a></li>
-			<li><a id="95" class="anaquel anaquel-color-vacio">95</a></li>
-			<li><a id="96" class="anaquel anaquel-color-vacio">96</a></li>
-			<li><a id="97" class="anaquel anaquel-color-vacio">97</a></li>
-			<li><a id="98" class="anaquel anaquel-color-vacio">98</a></li>
-			<li><a id="99" class="anaquel anaquel-color-vacio">99</a></li>
-			<li><a id="100" class="anaquel anaquel-color-vacio">100</a></li>
-			<li><a id="101" class="anaquel anaquel-color-vacio">101</a></li>
-			<li><a id="102" class="anaquel anaquel-color-vacio">102</a></li>
-			<li><a id="103" class="anaquel anaquel-color-vacio">103</a></li>
-			<li><a id="104" class="anaquel anaquel-color-vacio">104</a></li>
-			<li><a id="105" class="anaquel anaquel-color-vacio">105</a></li>
-			<li><a id="106" class="anaquel anaquel-color-vacio">106</a></li>
-			<li><a id="107" class="anaquel anaquel-color-vacio">107</a></li>
-			<li><a id="108" class="anaquel anaquel-color-vacio">108</a></li>
-		</ul>
-		<ul class="anaqueles7">
-			<li><a id="109" class="anaquel anaquel-color-vacio">109</a></li>
-			<li><a id="110" class="anaquel anaquel-color-vacio">110</a></li>
-			<li><a id="111" class="anaquel anaquel-color-vacio">111</a></li>
-			<li><a id="112" class="anaquel anaquel-color-vacio">112</a></li>
-			<li><a id="113" class="anaquel anaquel-color-vacio">113</a></li>
-			<li><a id="114" class="anaquel anaquel-color-vacio">114</a></li>
-			<li><a id="115" class="anaquel anaquel-color-vacio">115</a></li>
-			<li><a id="116" class="anaquel anaquel-color-vacio">116</a></li>
-			<li><a id="117" class="anaquel anaquel-color-vacio">117</a></li>
-			<li><a id="118" class="anaquel anaquel-color-vacio">118</a></li>
-			<li><a id="119" class="anaquel anaquel-color-vacio">119</a></li>
-			<li><a id="120" class="anaquel anaquel-color-vacio">120</a></li>
-			<li><a id="121" class="anaquel anaquel-color-vacio">121</a></li>
-			<li><a id="122" class="anaquel anaquel-color-vacio">122</a></li>
-			<li><a id="123" class="anaquel anaquel-color-vacio">123</a></li>
-			<li><a id="124" class="anaquel anaquel-color-vacio">124</a></li>
 		</ul>
 	</div>
 	<div id="profundidades" class="popup" style="display: none;">
@@ -339,7 +286,7 @@
 </body>
 </html>
 <?php
-	/*} else {
+	} else {
 		header("Location: inicio.php");
-	}*/
+	}
 ?>

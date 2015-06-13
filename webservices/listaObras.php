@@ -16,7 +16,10 @@
 	<link href="js/jqueryUi/css/ui-lightness/jquery-ui-1.8.11.custom.css" rel="stylesheet" type="text/css">
 	<script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
 	<script type="text/javascript" src="js/jqueryUi/js/jquery-ui-1.8.11.custom.min.js"></script>
+	<link href='css/jquery.alerts.css' rel='stylesheet' type='text/css'>	
 	<script type="text/javascript" src="js/listaObras.js"></script>
+	<script type="text/javascript" src="js/menu.js"></script>
+    <script type="text/javascript" src="js/jquery.alerts.js"></script>
 </head>
 <body>
 	<?php echo $_SESSION['menu']; ?>
@@ -26,27 +29,7 @@
 			<li class="boton_izq"><a class="button1">Nuevo</a></li>
 		</ul>
 		<div class="listado">
-			<div class="busqueda">
-				<ul class="tabla_labels_list roboto300">
-					<li>Obra &nbsp;&nbsp;&nbsp;<input type="text" id="txtObra" name="txtObra" class="txtfield1 txtfield_size300 roboto300"></li>
-					<input type="button" id="btnBuscar" value="Buscar" />
-				</ul>
-			</div>
-			<table class="bordered" id="bordered">
-				<thead>
-					<tr>
-						<th>Descripción</th>
-						<th>Dirección</th>
-						<th>Cliente</th>
-						<th></th>
-					</tr>
-				</thead>
-				<tr>
-					<td>Lima Central Tower</td>
-					<td>Av. El Derby</td>
-					<td>Constructora Arquitectos S.A.C.</td>
-					<td><a href="form_obras.php?id=1"><img src='images/edit.png' title='editar'></a></td>
-				</tr>
+		    <table class="bordered" id="tabla_obras">			
 			</table>
 			<div class="paginacion"></div>
 		</div>

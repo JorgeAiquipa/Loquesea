@@ -7,8 +7,6 @@
 	<ul id="mmp1-child" class="main-menu-leftbar roboto300">
 		<li class="main-menu-child menu-color-ani1" href="listaClientes.php" name="MantClientes">Clientes</li>
 		<li class="main-menu-child menu-color-ani1" href="listaObras.php" name="MantObras">Obras</li>
-		<li class="main-menu-child menu-color-ani1" href="listaAcuerdos.php" name="MantAcuerdos">Acuerdos comerciales</li>
-		<li class="main-menu-child menu-color-ani1" href="listaProbeteros.php" name="MantProbeteros">Probeteros</li>
 	</ul>	
 	<ul id="mmp2-child" class="main-menu-leftbar roboto300">
 		<li id="mml2" class="main-menu-child menu-color-ani1 hasChild">Órdenes»</li>

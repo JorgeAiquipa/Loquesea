@@ -21,9 +21,21 @@ $(document).ready(function() {
 			},
 			success: function(data) {
 				//alert(data);
-				if(data == 'Cliente ya esta creado'){
+				var dataOK ="Error";
+				if (data.substr(0,1) == "{"){
+				     var resul = JSON.parse(data); 
+				     //alert("lll "+toType(resul));                        
+                     if(resul.Ruc != "")
+                        dataOK = "Ok";
+                     }
+                  else
+                  {
+                    dataOk = data;
+                  }
+
+				if(dataOK != 'Ok'){
 					$(".msginfo").addClass('colormsgerror');
-					$('.msginfo').html(data);
+					$('.msginfo').html(dataOk);
 					$('.msginfo').fadeIn(500);
 				} else {
 					$(".msginfo").addClass('colormsgok');
@@ -74,4 +86,8 @@ function gup(nombre){
 		return "";
 	else
 		return results[1];
+}
+
+var toType = function(obj) {
+  return ({}).toString.call(obj).match(/\s([a-z|A-Z]+)/)[1].toLowerCase()
 }

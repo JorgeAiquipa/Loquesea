@@ -31,13 +31,7 @@
 		<ul class="barra_botones">
 			<li class="boton_izq"><a class="button1">Nuevo</a></li>
 		</ul>
-		<div class="listado">
-			<div class="busqueda">
-				<ul class="tabla_labels_list roboto300">
-					<li>Razón Social &nbsp;&nbsp;&nbsp;<input type="text" id="txtRazon" name="txtRazon" class="txtfield1 txtfield_size300 roboto300"></li>
-					<input type="button" id="btnBuscar" value="Buscar" />
-				</ul>
-			</div>
+		<div class="listado">			
 			<table class="bordered" id="tabla_clientes">			
 			</table>
 			<div class="paginacion"></div>
