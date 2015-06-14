@@ -12,5 +12,8 @@ Primer Avance:
 
 https://docs.google.com/document/d/1PbeTiZlmRyLS82qen_ib7r-dSK6-NoawuNRjUZHcBc0/edit#heading=h.t24wdjehsrnc
 
+<br>
+
+http://jorgeaiquipa.blogspot.com/?m=1
 
 
